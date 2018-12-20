@@ -21,5 +21,7 @@ func main() {
 
 	logrus.Info("Received exit signal. Terminating.")
 
-	bot.Session.Close()
+	cache.Ticker.Stop()
+
+	bot.Chrono.Session.Close()
 }
