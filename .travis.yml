@@ -1,0 +1,34 @@
+sudo: false
+
+language: go
+
+env:
+  - SMVERSION=1.9
+
+go:
+  - "1.11.x"
+
+matrix:
+    fast_finish: true
+
+addons:
+    apt_packages:
+      - p7zip
+
+script:
+    - go get -d ./ && go build -o ./out/bot ./
+    - export GOOS=windows && go get -d ./ && go build -o ./out/bot.exe ./
+
+before_deploy:
+    - tar -czf linux-amd64.tar.gz -C $TRAVIS_BUILD_DIR/out/ bot -C $TRAVIS_BUILD_DIR/ config.toml.example
+    - 7zr a windows-amd64.7z $TRAVIS_BUILD_DIR/out/bot.exe $TRAVIS_BUILD_DIR/config.toml.example
+
+deploy:
+    provider: releases
+    api_key: "$githubkey"
+    file:
+        - $TRAVIS_BUILD_DIR/linux-amd64.tar.gz
+        - $TRAVIS_BUILD_DIR/windows-amd64.7z
+    skip_cleanup: true
+    on:
+        tags: true
