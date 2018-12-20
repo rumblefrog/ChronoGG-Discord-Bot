@@ -28,6 +28,8 @@ func StartBot() {
 	if err != nil {
 		logrus.WithField("error", err).Fatal("Unable to open bot session")
 	}
+
+	Chrono.Listen()
 }
 
 func ready(s *discordgo.Session, event *discordgo.Ready) {
