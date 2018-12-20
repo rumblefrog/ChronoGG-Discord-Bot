@@ -1,0 +1,9 @@
+# Bot token
+# You may obtain this at https://discordapp.com/developers/applications/
+Token = ""
+
+# ChannelID to send the message in
+# You would need to enable developer mode in your Discord client
+# Right click the channel that you would like the notifications in then copy the ID
+# Paste the ID here
+ChannelID = 465937544962375681 
